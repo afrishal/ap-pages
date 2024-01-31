@@ -31,7 +31,7 @@ jobs:
           path: dist
   
   deploy:
-    permission:
+    permissions:
       contents: read
       pages: write
       id-token: write
