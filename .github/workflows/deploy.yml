@@ -19,9 +19,23 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.1
+        with:
+          # File containing the version Spec of the version to use.  Examples: package.json, .nvmrc, .node-version, .tool-versions.
+          node-version-file: .nvmrc
+          # Used to specify a package manager for caching in the default directory. Supported values: npm, yarn, pnpm.
+          cache: 'pnpm'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.4.0
+        with:
+          run_install: true
+
       # Runs build
       - name: run build and archive
         run: |
+          pnpm install
           pnpm build
 
       # Runs upload artifacts
