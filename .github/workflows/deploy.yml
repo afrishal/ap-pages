@@ -33,10 +33,13 @@ jobs:
           # Used to specify a package manager for caching in the default directory. Supported values: npm, yarn, pnpm.
           cache: 'pnpm'
 
+      - name: set repo name env
+        run: echo "REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d '/' -f 2)" >> $GITHUB_ENV
+
       # Runs build
       - name: run build and archive
         run: |
-          pnpm build
+          pnpm build --base=/${{ env.REPO_NAME }}/
 
       # Runs upload artifacts
       - name: upload artifact
